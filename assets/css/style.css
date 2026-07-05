@@ -629,18 +629,19 @@ img { max-width: 100%; display: block; }
 .highlight .nt { color: #7ee787; }
 .highlight .err { color: #f85149; }
 
-/* tables */
+/* tables (JS wraps each in .table-wrap for narrow-screen scrolling) */
+.table-wrap {
+  overflow-x: auto;
+  margin: 1.4rem 0 1.8rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
 .post-content table {
   width: 100%;
   border-collapse: collapse;
-  margin: 1.4rem 0 1.8rem;
   font-size: 0.92rem;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  overflow: hidden;
-  display: block;
-  overflow-x: auto;
 }
+.post-content .table-wrap table { margin: 0; }
 .post-content th {
   font-family: var(--mono);
   font-size: 0.72rem;

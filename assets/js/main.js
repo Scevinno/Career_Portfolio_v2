@@ -57,6 +57,14 @@
     revealEls.forEach(function (el) { el.classList.add("is-visible"); });
   }
 
+  /* ---- wrap article tables for narrow-screen horizontal scroll ---- */
+  document.querySelectorAll(".post-content table").forEach(function (table) {
+    var wrap = document.createElement("div");
+    wrap.className = "table-wrap";
+    table.parentNode.insertBefore(wrap, table);
+    wrap.appendChild(table);
+  });
+
   /* ---- reading progress bar (post pages) ---- */
   var bar = document.getElementById("progress-bar");
   if (bar) {

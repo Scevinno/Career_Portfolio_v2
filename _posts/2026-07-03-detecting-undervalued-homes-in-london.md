@@ -308,9 +308,9 @@ If the model predicts a fair price of £600k and the home sold for £300k, that 
 undervaluation_threshold = 50   # flag homes that sold >= 50% below predicted
 
 results = pd.DataFrame()
-results["address"]          = address_lookup.loc[x_test.index].values
-results["actual_price"]     = y_test.values
-results["predicted_price"]  = y_pred
+results["address"] = address_lookup.loc[x_test.index].values
+results["actual_price"] = y_test.values
+results["predicted_price"] = y_pred
 results["undervalued_by_%"] = (results["predicted_price"] - results["actual_price"]) / results["predicted_price"] * 100
 
 undervalued = results[results["undervalued_by_%"] >= undervaluation_threshold]
