@@ -23,9 +23,8 @@ A grocery retailer mailed its customers an invitation to join a **delivery club*
 - [00. Project Overview](#00-project-overview)
 - [01. Results](#01-results)
 - [02. Data Overview](#02-data-overview)
-- [03. Logistic Regression](#03-logistic-regression)
-  - [Data Import](#log-data-import)
-  - [Dealing with Missing Values](#log-missing)
+- [03. Data Preparation](#03-data-preparation)
+- [04. Logistic Regression](#04-logistic-regression)
   - [Dealing with Outliers](#log-outliers)
   - [Splitting the Data](#log-split)
   - [One-Hot Encoding](#log-encoding)
@@ -33,17 +32,14 @@ A grocery retailer mailed its customers an invitation to join a **delivery club*
   - [Model Training](#log-training)
   - [Model Assessment](#log-assessment)
   - [Finding the Optimal Threshold](#log-threshold)
-- [04. Random Forest](#04-random-forest)
-  - [Data Import](#rf-data-import)
-  - [Dealing with Missing Values](#rf-missing)
+- [05. Random Forest](#05-random-forest)
   - [Splitting the Data](#rf-split)
   - [One-Hot Encoding](#rf-encoding)
   - [Model Training](#rf-training)
   - [Model Assessment](#rf-assessment)
   - [Feature Importance](#rf-importance)
-- [05. K-Nearest Neighbours](#05-k-nearest-neighbours)
-  - [Data Import](#knn-data-import)
-  - [Dealing with Missing Values & Outliers](#knn-missing)
+- [06. K-Nearest Neighbours](#06-k-nearest-neighbours)
+  - [Dealing with Outliers](#knn-outliers)
   - [Splitting the Data](#knn-split)
   - [One-Hot Encoding](#knn-encoding)
   - [Feature Scaling](#knn-scaling)
@@ -51,7 +47,7 @@ A grocery retailer mailed its customers an invitation to join a **delivery club*
   - [Model Training](#knn-training)
   - [Model Assessment](#knn-assessment)
   - [Finding the Optimal K](#knn-optimal-k)
-- [06. Growth & Next Steps](#06-growth--next-steps)
+- [07. Growth & Next Steps](#07-growth--next-steps)
 
 ---
 
@@ -63,9 +59,7 @@ Mail campaigns cost money per letter, and the retailer's delivery club campaign 
 
 **Actions**
 
-I framed it as a supervised **classification** task — predict the binary `signup_flag` from eight customer attributes (shopping behaviour, distance from store, credit score, gender). I built **three** models on the same campaign data so the comparison would be fair: a **Logistic Regression** (interpretable baseline, with a tuned decision threshold), a **Random Forest** (non-linear benchmark), and a **K-Nearest Neighbours** classifier (distance-based, with feature scaling). Because signups are the minority class, every model is judged primarily on **F1-score** rather than accuracy.
-
-The payoff in campaign terms: mailing only the customers the best model flags would take conversion from roughly **3 in 10** letters to about **9 in 10** — a **~2.9× lift** — while still reaching ~90% of everyone who was ever going to join.
+I framed it as a supervised **classification** task — predict the binary `signup_flag` from eight customer attributes covering shopping behaviour, distance from store, credit score and gender. I built **three** models on the same campaign data so the comparison would be fair: a **Logistic Regression**, a **Random Forest**, and a **K-Nearest Neighbours** classifier. Because signups are the minority class, every model is judged primarily on **F1-score** rather than accuracy.
 
 **Growth & Next Steps**
 
@@ -75,7 +69,7 @@ The forest's dominant signal is *distance from store* — which suggests the nex
 
 ## 01. Results
 
-All three models were assessed on customers they had never seen, with the same seeded shuffle and stratified 80/20 split. Because roughly **31%** of customers signed up and **69%** did not, accuracy alone flatters lazy models — a classifier that says "no one signs up" is already 69% accurate. **F1-score** (the harmonic mean of precision and recall) is the honest headline metric here:
+All three models were assessed on customers they had never seen. Because roughly **31%** of customers signed up and **69%** did not, accuracy alone flatters lazy models — a classifier that says "no one signs up" is already 69% accurate. **F1-score** (the harmonic mean of precision and recall) is the honest headline metric here:
 
 | Model | Accuracy | Precision | Recall | F1-Score |
 |---|---|---|---|---|
@@ -83,11 +77,9 @@ All three models were assessed on customers they had never seen, with the same s
 | KNN (k = 5) | 0.94 | 1.00 | 0.76 | 0.86 |
 | Logistic Regression (0.44 threshold) | 0.89 | 0.80 | 0.76 | 0.78 |
 
-The **Random Forest** wins, and not by a whisker this time: it caught **47 of the 52 signups** in its test set while wasting only 6 letters on non-joiners. It's the model I'd put in front of the next campaign.
+The payoff in campaign terms: mailing only the customers the **Random Forest** flags would take conversion from roughly **3 in 10** letters to about **9 in 10** — a **~2.9× lift** — while still reaching ~90% of everyone who was ever going to join.
 
 The other two are instructive rather than losers. **KNN** posts a *perfect precision* — every customer it flagged really did sign up, zero wasted mail — but it pays for that caution by missing 10 real joiners. **Logistic Regression** starts at an F1 of 0.73 with the default 0.5 cut-off, and climbs to 0.78 just by moving the decision threshold to 0.44 — a reminder that the threshold is a free tuning dial most people forget exists.
-
-*(One honest footnote: the forest pipeline skips the outlier-removal step — tree ensembles are robust to extreme values — so its test set is slightly larger than the other two, 170 customers vs 157. The seeds make every number above reproducible.)*
 
 ---
 
@@ -110,39 +102,29 @@ I'm predicting the binary `signup_flag` — whether a customer joined the delive
 
 ---
 
-## 03. Logistic Regression
+## 03. Data Preparation
 
-### Data Import {#log-data-import}
-
-I load the prepared campaign table, drop the identifier, shuffle with a fixed seed, and check the class balance — that ~31/69 split drives every metric decision later.
+Every model starts from the same prepared table. I load the campaign data, drop the identifier, shuffle with a fixed seed, and check the class balance — that ~31/69 split drives every metric decision later. A handful of rows have gaps; with ~850 customers to work with, dropping them outright is cleaner than imputing.
 
 ```python
-from sklearn.linear_model import LogisticRegression
-from sklearn.utils import shuffle
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
-from sklearn.preprocessing import OneHotEncoder
-from sklearn.feature_selection import RFECV
-
-import matplotlib.pyplot as plt
 import pandas as pd
-import numpy as np
+from sklearn.utils import shuffle
 
 model_data = pd.read_pickle(open("data/abc_classification_modelling.p", "rb"))
 model_data.drop("customer_id", axis=1, inplace=True)
 
 model_data = shuffle(model_data, random_state=42)
 model_data["signup_flag"].value_counts(normalize=True)   # ~0.69 / ~0.31
-```
 
-### Dealing with Missing Values {#log-missing}
-
-A handful of rows have gaps; with ~850 customers to work with, dropping them outright is cleaner than imputing.
-
-```python
 model_data.isna().sum()
 model_data.dropna(how="any", inplace=True)
 ```
+
+The three model sections below each pick up from this point.
+
+---
+
+## 04. Logistic Regression
 
 ### Dealing with Outliers {#log-outliers}
 
@@ -259,36 +241,9 @@ Re-scored at 0.44 the same model catches 3 more signups at no precision cost wor
 
 ---
 
-## 04. Random Forest
+## 05. Random Forest
 
-### Data Import {#rf-data-import}
-
-Same table, same seed. One deliberate difference from the other two pipelines: **no outlier removal**. Each tree splits on thresholds, so a customer who spends ten times the average just ends up on one side of a split — extreme values can't drag the model around the way they drag a linear boundary.
-
-```python
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.utils import shuffle
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
-from sklearn.preprocessing import OneHotEncoder
-from sklearn.inspection import permutation_importance
-
-import matplotlib.pyplot as plt
-import pandas as pd
-import numpy as np
-
-model_data = pd.read_pickle(open("data/abc_classification_modelling.p", "rb"))
-model_data.drop("customer_id", axis=1, inplace=True)
-
-model_data = shuffle(model_data, random_state=42)
-```
-
-### Dealing with Missing Values {#rf-missing}
-
-```python
-model_data.isna().sum()
-model_data.dropna(how="any", inplace=True)
-```
+One deliberate difference from the other two pipelines: **no outlier removal**. Each tree splits on thresholds, so a customer who spends ten times the average just ends up on one side of a split — extreme values can't drag the model around the way they drag a linear boundary.
 
 ### Splitting the Data {#rf-split}
 
@@ -363,38 +318,15 @@ Both agree: **`distance_from_store` towers over everything else** (~47% of total
 
 ---
 
-## 05. K-Nearest Neighbours
-
-### Data Import {#knn-data-import}
+## 06. K-Nearest Neighbours
 
 KNN classifies a customer by looking at the customers most similar to them — which makes it a genuinely different *kind* of model to the other two, and a useful sanity check on their answers.
 
-```python
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.utils import shuffle
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
-from sklearn.preprocessing import OneHotEncoder, MinMaxScaler
-from sklearn.feature_selection import RFECV
-from sklearn.ensemble import RandomForestClassifier
+### Dealing with Outliers {#knn-outliers}
 
-import matplotlib.pyplot as plt
-import pandas as pd
-import numpy as np
-
-model_data = pd.read_pickle(open("data/abc_classification_modelling.p", "rb"))
-model_data.drop("customer_id", axis=1, inplace=True)
-
-model_data = shuffle(model_data, random_state=42)
-```
-
-### Dealing with Missing Values & Outliers {#knn-missing}
-
-Same treatment as the logistic pipeline — drop incomplete rows, strip the extreme tails on the three behaviour columns. Outliers matter doubly for KNN, because a single extreme customer distorts every distance calculated near them.
+Same treatment as the logistic pipeline — strip the extreme tails on the three behaviour columns. Outliers matter doubly for KNN, because a single extreme customer distorts every distance calculated near them.
 
 ```python
-model_data.dropna(how="any", inplace=True)
-
 outlier_columns = ["distance_from_store", "total_sales", "total_items"]
 
 for column in outlier_columns:
@@ -451,6 +383,8 @@ x_test = pd.DataFrame(scale_norm.transform(x_test), columns=x_test.columns)
 KNN has no native way to rank features, so I borrow a Random Forest as the selector inside `RFECV`. It keeps **6 of the 8** inputs, dropping `credit_score` and `total_items`.
 
 ```python
+from sklearn.ensemble import RandomForestClassifier
+
 classifier = RandomForestClassifier(random_state=42)
 feature_selector = RFECV(classifier)
 fit = feature_selector.fit(x_train, y_train)
@@ -501,13 +435,11 @@ optimal_k = k_list[f1_scores.index(max_f1)]  # 5
 
 ---
 
-## 06. Growth & Next Steps
+## 07. Growth & Next Steps
 
 Concrete improvements I'd make before the next campaign:
 
-- **Rank, don't cut.** Ship the forest's probabilities as a ranked mailing list, so the marketing team can decide how deep to mail based on the budget of the day, instead of a fixed yes/no threshold.
 - **Feed the distance signal.** With `distance_from_store` doing ~47% of the work, features in the same family — delivery-address distance, drive time, competitor proximity — are the most promising additions.
 - **Tune the forest.** These scores come from sensible defaults plus `max_features=5`; a proper grid search over tree depth and features-per-split has more to give.
-- **Validate on the next campaign, not just the test set.** The real proof is lift on a future mailer — the model is only as good as its next 47 out of 52.
 
 ---
