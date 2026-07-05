@@ -21,8 +21,9 @@ I built a model that predicts a London property's **fair sale price** from its s
 # Table of Contents
 
 - [00. Project Overview](#00-project-overview)
-- [01. Modelling Overview](#01-modelling-overview)
-- [02. Linear Regression](#02-linear-regression)
+- [01. Results](#01-results)
+- [02. Data Overview](#02-data-overview)
+- [03. Linear Regression](#03-linear-regression)
   - [Data Import](#lin-data-import)
   - [Dealing with Missing Values](#lin-missing)
   - [Dealing with Outliers](#lin-outliers)
@@ -31,7 +32,7 @@ I built a model that predicts a London property's **fair sale price** from its s
   - [Feature Selection](#lin-feature-selection)
   - [Model Training](#lin-training)
   - [Model Assessment](#lin-assessment)
-- [03. Random Forest](#03-random-forest)
+- [04. Random Forest](#04-random-forest)
   - [Data Import](#rf-data-import)
   - [Dealing with Missing Values](#rf-missing)
   - [Dealing with Outliers](#rf-outliers)
@@ -39,8 +40,8 @@ I built a model that predicts a London property's **fair sale price** from its s
   - [Target Encoding](#rf-encoding)
   - [Model Training](#rf-training)
   - [Model Assessment](#rf-assessment)
-- [04. Detecting Undervalued Homes](#04-detecting-undervalued-homes)
-- [05. Growth & Next Steps](#05-growth--next-steps)
+- [05. Detecting Undervalued Homes](#05-detecting-undervalued-homes)
+- [06. Growth & Next Steps](#06-growth--next-steps)
 
 ---
 
@@ -54,22 +55,13 @@ I built a model that predicts a London property's **fair sale price** from its s
 
 I trained two regression models on ~6,300 London sales from 2024 to predict total sale price from three features — floor area, property type, and location (postcode area). I compared a **Linear Regression** and a **Random Forest**, then built a residual-based detector on top to flag and name the most undervalued homes.
 
-**Results**
-
-Both models landed at essentially the same accuracy on unseen data:
-
-- **Metric 1 — Adjusted R-Squared:** Random Forest ~0.76, Linear Regression ~0.75
-- **Metric 2 — R-Squared (K-Fold Cross Validation, k = 4):** Linear Regression  ~0.74, Random Forest ~0.73
-
-The detector then flagged **~40 of the test homes** as selling 50%+ below their predicted fair price — and, importantly, correctly re-attached each home's address so the shortlist was actually usable.
-
 **Growth & Next Steps**
 
 The flag is a *shortlist to investigate, not a definitive bargain* — the model isn't trained on condition, or any further details about the property. Natural next steps are an upper-bound guard on the threshold, a fixed random seed for a reproducible shortlist, and cross-checking flags against the dataset's own sale estimates.
 
 ---
 
-## 01. Modelling Overview
+## 01. Results
 
 I framed this as a supervised regression problem: predict total `history_price` from floor area, property type, and (target-encoded) location. I deliberately built **two** models on the *same* cleaned data — a fully interpretable **Linear Regression** and a non-linear **Random Forest** — so the comparison would be fair. Both followed the same spine: shuffle → handle missing values → remove outliers → train/test split → target-encode → train → assess.
 
@@ -88,7 +80,22 @@ I take the **Random Forest** forward for the detector — it's marginally ahead 
 
 ---
 
-## 02. Linear Regression
+## 02. Data Overview
+
+I'm predicting the continuous `history_price` — the total price a London home actually sold for in 2024 — from the Kaggle London house-price dataset. The raw file was filtered to 2024 sales only and de-duplicated, `Price_per_SqM` was derived purely as an outlier-removal tool, and `fullAddress` was set aside before modelling so it could label the final shortlist without ever becoming a feature. After this pre-processing, the modelling dataset contains the following fields:
+
+| Variable Name | Variable Type | Description |
+|---|---|---|
+| history_price | Dependent | The total price the home sold for in 2024 (GBP) |
+| outcode | Independent | The postcode area (e.g. SW11) — the location signal, ~141 categories, target-encoded |
+| floorAreaSqM | Independent | The internal floor area of the home in square metres |
+| propertyType | Independent | The type of home — flat, terraced, semi-detached, detached, etc. |
+| Price_per_SqM | Derived | Sale price ÷ floor area — used only to strip outliers, dropped before modelling |
+| fullAddress | Identifier | The full property address — held out of the features, re-attached at the end to name the shortlist |
+
+---
+
+## 03. Linear Regression
 
 ### Data Import {#lin-data-import}
 
@@ -199,7 +206,7 @@ An **R² of ~0.75** from a straight line is a strong baseline: with just locatio
 
 ---
 
-## 03. Random Forest
+## 04. Random Forest
 
 The forest uses the **same** prepared data as above, so the preparation steps are identical — repeated here for completeness, then the model itself differs.
 
@@ -294,11 +301,11 @@ feature_summary.columns = ["input_variable", "feature_importance"]
 result = permutation_importance(regressor, x_test, y_test, n_repeats=10, random_state=42)
 ```
 
-Both tell the same story: **floor area and location do the heavy lifting**, with property type a minor contributor. The forest reaches **R² ~0.76** — statistically level with the linear model, which is exactly the feature-ceiling point from the overview.
+Both tell the same story: **floor area and location do the heavy lifting**, with property type a minor contributor. The forest reaches **R² ~0.76** — statistically level with the linear model, which is exactly the feature-ceiling point from [01. Results](#01-results).
 
 ---
 
-## 04. Detecting Undervalued Homes
+## 05. Detecting Undervalued Homes
 
 A price predictor on its own is only mildly interesting. The actual product is what you do with its **residuals** — the gap between what a home *should* have sold for and what it *did*.
 
@@ -325,7 +332,7 @@ Using `.loc[x_test.index]` (label-based) rather than `.iloc` is the detail that 
 
 ---
 
-## 05. Growth & Next Steps
+## 06. Growth & Next Steps
 
 A few concrete improvements would take this from a working prototype to something sturdier:
 
