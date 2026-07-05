@@ -28,6 +28,5 @@ library_mix:
     - name: Matplotlib
       pct: 11
       color: "#7deee0"
-    - name: core
-      pct: 11
-      color: "#c5f9f2"
+  # The remainder to 100% (core-Python lines) is deliberately left as empty
+  # track on the bar — no segment, no label.
