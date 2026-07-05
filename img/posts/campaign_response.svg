@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Predicting marketing campaign response">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2C2F36"/>
+      <stop offset="1" stop-color="#17181B"/>
+    </linearGradient>
+    <linearGradient id="gb" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#17A589"/>
+      <stop offset="1" stop-color="#2E86C1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#bg)"/>
+
+  <!-- faint grid -->
+  <g stroke="#3E4250" stroke-width="1" opacity="0.35">
+    <line x1="0" y1="150" x2="800" y2="150"/>
+    <line x1="0" y1="300" x2="800" y2="300"/>
+    <line x1="0" y1="420" x2="800" y2="420"/>
+    <line x1="200" y1="0" x2="200" y2="600"/>
+    <line x1="400" y1="0" x2="400" y2="600"/>
+    <line x1="600" y1="0" x2="600" y2="600"/>
+  </g>
+
+  <!-- sigmoid decision curve, green-to-blue -->
+  <path d="M 60 470 C 260 470, 300 130, 500 130 L 740 130"
+        fill="none" stroke="url(#gb)" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- class 0: hollow dots below the curve -->
+  <g fill="none" stroke="#e7e7e7" stroke-width="3">
+    <circle cx="120" cy="380" r="7"/><circle cx="185" cy="430" r="7"/>
+    <circle cx="255" cy="365" r="7"/><circle cx="330" cy="440" r="7"/>
+    <circle cx="410" cy="395" r="7"/><circle cx="500" cy="450" r="7"/>
+    <circle cx="580" cy="400" r="7"/>
+  </g>
+
+  <!-- class 1: solid dots above the curve -->
+  <g fill="#e7e7e7">
+    <circle cx="330" cy="235" r="7"/><circle cx="415" cy="185" r="7"/>
+    <circle cx="500" cy="240" r="7"/><circle cx="575" cy="195" r="7"/>
+    <circle cx="655" cy="240" r="7"/>
+  </g>
+
+  <!-- one converted customer, highlighted crossing the boundary -->
+  <circle cx="250" cy="275" r="11" fill="#1ABC9C" stroke="#ffffff" stroke-width="3"/>
+  <line x1="250" y1="275" x2="250" y2="368" stroke="#1ABC9C" stroke-width="2" stroke-dasharray="5 5"/>
+
+  <!-- mailer envelope in a circle badge -->
+  <g transform="translate(575,395)" stroke="#ffffff" stroke-width="6" fill="none" stroke-linejoin="round" stroke-linecap="round">
+    <circle cx="0" cy="0" r="72" fill="#101010"/>
+    <rect x="-40" y="-24" width="80" height="52" rx="6"/>
+    <path d="M -40 -20 L 0 10 L 40 -20" stroke="#2E86C1"/>
+  </g>
+</svg>
