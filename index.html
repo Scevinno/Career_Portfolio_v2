@@ -36,26 +36,26 @@ body_class: page-home
         <h2 class="section-title">What I work with</h2>
       </div>
 
-      <div class="toolkit-grid">
-        <div class="languages reveal">
-          {% for lang in site.data.toolkit.languages %}
-          <div class="lang-tile">
-            <span class="lang-name">{{ lang.name }}</span>
-            <span class="lang-note">{{ lang.note }}</span>
-          </div>
-          {% endfor %}
+      <div class="languages reveal">
+        {% for lang in site.data.toolkit.languages %}
+        <div class="lang-tile">
+          <span class="lang-name">{{ lang.name }}</span>
+          <span class="lang-note">{{ lang.note }}</span>
         </div>
+        {% endfor %}
+      </div>
 
-        <div class="lib-mix reveal">
-          <h3 class="lib-mix-title">Python library mix</h3>
+      <div class="lib-mix reveal">
+        <h3 class="lib-mix-title">Python library mix</h3>
+        <div class="stack-bar">
+          {% for lib in site.data.toolkit.library_mix.libraries %}<span class="stack-seg" style="width: {{ lib.pct }}%; background: {{ lib.color }}"></span>{% endfor %}
+        </div>
+        <div class="stack-labels">
           {% for lib in site.data.toolkit.library_mix.libraries %}
-          <div class="lib-row">
-            <span class="lib-name">{{ lib.name }}</span>
-            <span class="lib-bar"><span class="lib-fill" style="--pct: {{ lib.pct }}%"></span></span>
-            <span class="lib-pct">{{ lib.pct }}%</span>
+          <div class="stack-label" style="width: {{ lib.pct }}%">
+            <span class="stack-dot" style="background: {{ lib.color }}"></span>{{ lib.name }}&nbsp;<span class="stack-pct">{{ lib.pct }}%</span>
           </div>
           {% endfor %}
-          <p class="lib-note">Measured, not self-assessed — the share of executable lines calling each library across the {{ site.data.toolkit.library_mix.source }} (blanks and comments excluded). Recomputed as projects are added.</p>
         </div>
       </div>
     </div>

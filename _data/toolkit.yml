@@ -21,9 +21,13 @@ library_mix:
   libraries:
     - name: pandas
       pct: 46
+      color: "#0f9488"
     - name: scikit-learn
       pct: 32
+      color: "#2dd4bf"
     - name: Matplotlib
       pct: 11
-    - name: core Python
+      color: "#7deee0"
+    - name: core
       pct: 11
+      color: "#c5f9f2"
