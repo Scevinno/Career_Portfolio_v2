@@ -3,16 +3,16 @@ layout: post
 title: Clustering the S&P 500 by Market Behaviour
 image: "/img/posts/sp500_clustering.svg"
 tags: [Machine Learning, Clustering, Python]
-summary: "K-means groups 422 S&P 500 companies into five behavioural tribes — on a 2025 dataset I assembled from scratch — to test whether stocks really behave the way their sector labels say they should."
+summary: "K-means groups 422 S&P 500 companies into five distinct groups — on a 2025 dataset assembled via yfinance — to explore how stocks behave across the 11 defined sectors."
 stack: "Python · pandas · scikit-learn · yfinance"
 metrics:
   - value: "5"
-    label: "behavioural groups"
+    label: "cluster groups"
   - value: "422"
     label: "companies clustered"
 ---
 
-Every S&P 500 company carries a sector label — Utilities, Information Technology, Health Care — assigned by a classification committee, not by the market. I built a dataset of how each of 499 companies **actually behaved through 2025** — returns, volatility, valuation, profitability, growth — and let a K-means model group the 422 with complete records, with no knowledge of those labels. The question: do stocks behave like their sector says they should?
+Every S&P 500 company carries a sector label — Utilities, Information Technology, Health Care, and more. I collected data representing high-level detail on how each of 499 companies **actually behaved through 2025** — returns, volatility, valuation, profitability, growth — and let a K-means model group the 422 with complete records, with no knowledge of those labels. The question: do stocks tend to trend in a certain consistent way across their sector tags?
 
 ---
 
@@ -36,15 +36,15 @@ Every S&P 500 company carries a sector label — Utilities, Information Technolo
 
 **Context**
 
-Sector labels drive real decisions — index funds, sector ETFs, portfolio diversification rules all lean on them. But a label is a statement about what a company *sells*, not how its stock *behaves*. If two "diversified" holdings actually move, earn and price identically, the diversification is on paper only. Clustering by measured behaviour puts the labels to the test.
+Sector labels group companies by what they *sell*. This project is an exploration of what happens when you group them by how their stocks actually *behaved* — how they moved, earned and priced through 2025 — and then lay those groups over the sector map. There is no hypothesis to prove here: the aim is to surface trends and groups — to see whether stocks tend to trend consistently within their sector, where they clearly don't, and what interesting structure falls out along the way. That open-ended pattern-finding is exactly what unsupervised clustering is for.
 
 **Actions**
 
-There was no ready-made table for this, so I built one: for every current S&P 500 constituent I assembled ten 2025-anchored metrics — price behaviour computed from a full year of daily prices, fundamentals from the four quarterly statements ending within 2025 — into one row per company. On that table I ran an unsupervised **K-means** pipeline: min-max scaling, an elbow (WCSS) search for the number of clusters, a seeded 50-restart fit so the groups are stable and reproducible, then profiling each cluster and mapping its sector make-up.
+There was no ready-made table for this, so I built one: for every current S&P 500 constituent I assembled ten 2025-anchored metrics — price behaviour computed from a full year of daily prices, fundamentals from the four quarterly statements ending within 2025 — into one row per company. On that table I ran an unsupervised **K-means** pipeline — min-max scaling, an elbow (WCSS) search for the number of clusters, a seeded 50-restart fit so the groups are stable and reproducible — then profiled each cluster in real units and mapped its sector make-up to see what patterns had emerged.
 
 **Growth & Next Steps**
 
-Heavy-tailed ratios like P/E compress under min-max scaling, so a log-transform or robust scaler is the next modelling step, followed by a silhouette check on the cluster count. The more ambitious extension is clustering on daily return correlation — grouping stocks by how they move *together*, not just by their summary statistics.
+The scaling choice is the first thing to revisit — min-max compresses heavy-tailed ratios like P/E and lets market cap's enormous range carve the nine biggest companies into a cluster of their own. Beyond that: a leaner set of input variables, and comparing each cluster's metrics against its sector's averages to investigate the outliers inside each sector.
 
 ---
 
@@ -223,9 +223,8 @@ For a portfolio builder the practical takeaway is direct: holding five different
 
 Concrete improvements queued for the next iteration:
 
-- **Tame the heavy tails.** A handful of true-but-extreme values (a P/E above 6,000, an ROE near 4,000%) compress everyone else into a sliver of the min-max scale, muting those metrics' influence — and they drag cluster *averages* around, which is why the profiling step deserves a median view too. Log-transforming the ratio columns — or switching to a robust scaler — would let them speak properly.
-- **Validate the cluster count.** The elbow read was a judgement call; a silhouette-score sweep across k would put a number on it.
-- **Deduplicate dual share classes.** Alphabet enters twice (GOOG and GOOGL) — one row per company is the honest count.
-- **Cluster on co-movement.** Summary statistics describe each stock alone. Clustering on the correlation of daily returns would group stocks by how they move *together* — the definition of behaviour that matters most for diversification.
+- **Rethink the min-max scaling.** It puts every metric on a 0–1 range, but it is defenceless against extremes. A P/E above 6,000 compresses every ordinary valuation into a sliver of the scale, and market cap's enormous range does the reverse — the nine biggest companies sit so far along that one axis that they claim a cluster of their own, driven as much by sheer size as by shared behaviour. Log-transforming the heavy-tailed columns, or switching to a robust scaler, would let both metrics contribute a gradient instead of an outlier flag.
+- **Reduce the number of variables.** Ten metrics all get an equal vote, but some of them overlap — volatility and beta tell related stories, as do the two growth columns. A leaner, less-correlated feature set would sharpen what each cluster actually means and make the groups easier to describe.
+- **Compare clusters to sector averages.** Each cluster's profile can be set against the average metrics of each sector — showing which companies sit far from their own sector's norm. That turns the clustering into a practical screen for investigating outliers within each individual sector, one sector at a time.
 
 ---
