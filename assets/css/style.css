@@ -393,6 +393,10 @@ img { max-width: 100%; display: block; }
   box-shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.7);
 }
 
+/* grid children may shrink below content width — otherwise a too-wide child
+   (e.g. long metric labels) pushes the whole grid past the card's padding */
+.project-link > * { min-width: 0; }
+
 .project-index {
   font-family: var(--mono);
   font-size: 0.85rem;
@@ -444,10 +448,11 @@ img { max-width: 100%; display: block; }
   width: fit-content;
 }
 
-/* on desktop the three metrics always share one row */
+/* on desktop the three metrics share one row; the box clamps to the card
+   and long labels wrap instead of pushing the cover past the border */
 @media (min-width: 901px) {
-  .project-metrics { flex-wrap: nowrap; }
-  .metric dt { white-space: nowrap; }
+  .project-metrics { flex-wrap: nowrap; max-width: 100%; }
+  .metric { min-width: 0; }
 }
 
 .metric {
@@ -794,7 +799,6 @@ img { max-width: 100%; display: block; }
   .hero-portrait { order: -1; justify-content: flex-start; }
   .portrait-frame { width: min(220px, 60%); }
   .project-link { grid-template-columns: auto 1fr; }
-  .project-link > * { min-width: 0; }
   .project-cover { grid-column: 2; }
   .project-cover img { max-width: min(420px, 100%); }
 }
