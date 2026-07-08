@@ -50,9 +50,9 @@ The scaling choice is the first thing to revisit — min-max compresses heavy-ta
 
 ## 01. Results
 
-The model finds **five behavioural groups** — and they only partly respect the sector map. Three findings stand out:
+The model finds **five behavioural groups** — three findings stand out:
 
-**Some sectors are real behavioural tribes.** **87% of Utilities**, **85% of Real Estate** and **75% of Consumer Staples** companies land in the same cluster — a low-beta, high-dividend, low-volatility group that behaves exactly like the defensive reputation of those sectors. Their label genuinely tells you how they trade.
+**Some sectors have behavioural consistency.** **87% of Utilities**, **85% of Real Estate** and **75% of Consumer Staples** companies land in the same cluster — a low-beta, high-dividend, low-volatility group that behaves exactly like the defensive reputation of those sectors. Their label genuinely tells you how they trade.
 
 **But across the whole index, the labels are only half-right.** Just **55% of companies** sit in their sector's most common behavioural group. Information Technology is the sharpest example: its biggest slice (43%) doesn't behave like "tech" at all — it trades alongside the economy-linked cyclicals — while the rest scatters across all four other groups. Two stocks with the same tech label can sit in completely different behavioural worlds.
 
@@ -70,7 +70,7 @@ The model finds **five behavioural groups** — and they only partly respect the
 
 ## 02. Data Overview
 
-The dataset is the part of this project I'm proudest of — every number in it is computed from dated source data, anchored to **calendar 2025** so no metric leaks information from a different period. Price metrics come from 2025's ~250 trading days (with the last 2024 close as baseline); fundamentals are trailing-twelve-month figures summed from the four quarterly statements ending within 2025, falling back to the nearest full fiscal year for off-cycle reporters. Four constituents without full 2025 history (2026 additions and spin-offs) were dropped, leaving **499 companies**.
+Price metrics come from 2025's ~250 trading days (with the last 2024 close as baseline); fundamentals are trailing-twelve-month figures summed from the four quarterly statements ending within 2025, falling back to the nearest full fiscal year for off-cycle reporters. Four constituents without full 2025 history (2026 additions and spin-offs) were dropped, leaving **499 companies**.
 
 | Variable Name | Variable Type | Description |
 |---|---|---|
@@ -87,7 +87,7 @@ The dataset is the part of this project I'm proudest of — every number in it i
 | revenue_growth_pct | Growth | Revenue growth, 2025 vs 2024 |
 | market_cap_b | Scale | Market capitalisation in $ billions |
 
-One deliberate choice: **missing values stay missing**. A company with negative earnings has no meaningful P/E — writing one in would be inventing data. Gaps are handled at the modelling stage instead, where dropping them is an explicit, visible decision.
+One deliberate choice: **missing values stay missing**. A company with negative earnings has no meaningful P/E. Gaps are handled at the modelling stage instead, where dropping them is an explicit, visible decision.
 
 ---
 
@@ -119,7 +119,7 @@ The **sector column is deliberately held out**. The whole point is to see what g
 
 ### Feature Scaling {#kmeans-scaling}
 
-Scaling is not optional for K-means. Market cap runs into the thousands of billions while beta lives between 0 and 3 — unscaled, every distance the model measures would be a market-cap comparison with noise attached. Min-max normalisation puts each of the ten metrics on the same 0–1 footing, giving every metric an equal vote.
+Market cap runs into the thousands of billions while beta lives between 0 and 3 — unscaled, every distance the model measures would be a market-cap comparison with noise attached. Min-max normalisation puts each of the ten metrics on the same 0–1 footing.
 
 ```python
 scale_norm = MinMaxScaler()
@@ -129,7 +129,7 @@ data_for_clustering_scaled = pd.DataFrame(scale_norm.fit_transform(data_for_clus
 
 ### Choosing How Many Clusters {#kmeans-k}
 
-K-means needs to be told how many groups to find. The standard tool is the **elbow method**: fit the model at every k from 1 to 11, record the Within-Cluster Sum of Squares (how tightly each cluster hugs its centre), and look for the point where adding another cluster stops buying much tightness.
+K-means needs to be told how many groups to find. The standard tool is the **elbow method**: fit the model at every k from 1 to 11, record the Within-Cluster Sum of Squares (how tightly each cluster hugs its centre), and look for the point where adding another cluster stops buying much tightness. 
 
 ```python
 k_values = list(range(1, 12))
@@ -148,7 +148,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-The curve bends gradually rather than snapping at one obvious point — common on real financial data, where group boundaries are soft. I chose **k = 5**: past five, each extra cluster shaved little off the WCSS, and the five groups that emerge are distinct enough to describe in plain English — which is its own kind of validation for an unsupervised model.
+The curve bends gradually rather than snapping at one obvious point — common on real financial data, where group boundaries are soft. I chose **k = 5**: past five, each extra cluster shaved little off the WCSS, and the five groups that emerge are distinct enough to describe in plain English.
 
 ### Model Training {#kmeans-training}
 
