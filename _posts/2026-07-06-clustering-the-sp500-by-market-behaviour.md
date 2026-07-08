@@ -204,18 +204,7 @@ Each sector's bar splits into the behavioural clusters its companies actually la
 
 ![Cluster composition within each sector — stacked bar chart]({{ "/img/posts/sp500_sector_clusters.png" | relative_url }})
 
-The spectrum runs from tribal to scattered:
-
-| Sector | Largest single cluster | Reading |
-|---|---|---|
-| Utilities | 87% | The label works — one shared behaviour |
-| Real Estate | 85% | Same defensive block, different address |
-| Consumer Staples | 75% | The classic defensive heartland |
-| Health Care | 58% | Mostly steady compounders, with a fringe |
-| Information Technology | 43% | Scattered across all five groups — and its biggest slice behaves like a cyclical, not like "tech" |
-| Financials | 42% | The most divided label — banks ≠ exchanges ≠ insurers |
-
-For a portfolio builder the practical takeaway is direct: holding five different tech names may still be one concentrated behavioural bet — or five genuinely different ones. The sector label can't tell you; the behaviour can.
+For a portfolio builder the practical takeaway is direct: holding five different tech names may still be one concentrated behavioural bet — or five genuinely different ones.
 
 ---
 
