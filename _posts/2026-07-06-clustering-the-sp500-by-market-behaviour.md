@@ -54,9 +54,9 @@ The model finds **five behavioural groups** — three findings stand out:
 
 **Some sectors have behavioural consistency.** **87% of Utilities**, **85% of Real Estate** and **75% of Consumer Staples** companies land in the same cluster — the Defensive Income group that aligns exactly with the conservative reputation of those sectors. Their label genuinely tells you how they trade.
 
-**But across the whole index, the labels are only half-right.** Just **55% of companies** sit in their sector's most common behavioural group. Information Technology is the sharpest example: its biggest slice (43%) doesn't behave like "tech" at all — it trades alongside the economy-linked cyclicals — while the rest scatters across all four other groups. Two stocks with the same tech label can sit in completely different behavioural worlds.
-
 **The momentum growth cluster leans heavily towards tech.** More than half of its 24 companies carry the Information Technology label — Oracle, Palantir, AMD and Micron among them — a concentration most likely associated with 2025's growth in AI. Other sectors appear in the group too, but the tech tilt is the pattern that stands out.
+
+**The remaining eight sectors are much more mixed.** Outside the defensive trio, behaviour is far less uniform — each sector's companies spread across several clusters, with Information Technology and Financials the most evenly split. An interesting next step is to explore the companies whose behaviour doesn't match the standard expectations for their particular sector.
 
 | Cluster | Character | Companies | Return | Div. yield | Beta | Rev. growth | P/E ratio | Profit margin |
 |---|---|---|---|---|---|---|---|---|
