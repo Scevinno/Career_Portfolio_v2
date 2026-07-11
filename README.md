@@ -1,8 +1,10 @@
 # Career Portfolio
 
-Data portfolio of **Nikolas Scevko** — a hand-built dark "data-editorial" theme (no remote theme, no framework).
+Data portfolio of **Nikolas Scevko** — data-science case studies presented in a hand-built dark "data-editorial" Jekyll theme (no remote theme, no framework).
 
-Live at: https://scevinno.github.io/Career_Portfolio
+**▶ View it live: https://scevinno.github.io/Career_Portfolio**
+
+Also on GitHub: [Purchase Prediction Web App](https://github.com/Scevinno/DSI-Streamlit) — an interactive Streamlit model, live at [dsi-webbapp.streamlit.app](https://dsi-webbapp.streamlit.app/).
 
 ## Adding a project
 
@@ -29,4 +31,3 @@ metrics:                              # up to ~3 headline numbers
 
 - Jekyll (GitHub Pages native build), kramdown + rouge
 - Custom layouts in `_layouts/`, one stylesheet (`assets/css/style.css`), one small JS file (`assets/js/main.js`)
-- Fonts: Space Grotesk (display), Inter (body), JetBrains Mono (data labels & code)
