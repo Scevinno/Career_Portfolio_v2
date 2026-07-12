@@ -64,7 +64,7 @@ I framed it as a supervised **classification** task — predict the binary `sign
 
 **Applications**
 
-This is the standard workflow behind targeted marketing in retail: score first, then spend. A CRM or campaign team would run the model over the whole customer base before each mailing, rank customers by predicted probability of joining, and post letters only as deep into that list as the budget allows — the same idea carries to email, coupon and loyalty-programme pushes. Any retailer selling a subscription-style add-on (delivery passes, loyalty clubs, premium tiers) can reuse the pattern directly: one past campaign becomes the training data that makes every future campaign cheaper per conversion.
+A CRM or campaign team would run the model after a pilot run over the whole customer base, rank customers by predicted probability of joining, and post letters only as deep into that list as the budget allows — the same idea carries to email, coupon and loyalty-programmes. Any retailer selling in subscription-style can reuse the pattern directly: one past campaign becomes the training data that makes every future campaign cheaper per conversion.
 
 **Growth & Next Steps**
 
@@ -92,11 +92,11 @@ The other two are instructive rather than losers. **KNN** posts a *perfect preci
 
 Three classifiers, three genuinely different ways of drawing the line between "will join" and "won't".
 
-**Logistic Regression** is the classification cousin of a straight-line model. It combines the features into a single weighted score and squashes it into a probability between 0 and 1 — a customer far from the store with a busy shopping history might come out at 0.82. Turning that probability into a yes/no decision means choosing a cut-off, and that cut-off is a business dial rather than a statistical default — which is exactly what the threshold-tuning step in the logistic section exploits. It's fast, stable on small datasets, and its weights read like an explanation of what drives signups.
+**Logistic Regression** is similar to a straight-line model. It combines the features into a single weighted score and squashes it into a probability between 0 and 1 — a customer far from the store with a busy shopping history might come out at 0.82. Turning that probability into a yes/no decision means choosing a cut-off, and that cut-off needs to be carefully chosen — which is exactly what the threshold-tuning step in the logistic section exploits. It's fast and easily interpretable.
 
-**Random Forest** builds hundreds of decision trees — each one a sequence of yes/no splits learned on a random slice of the customers and a random subset of the features — and lets them vote. A single tree tends to memorise noise; a large, deliberately varied crowd of trees averages the noise away and keeps the signal. Forests also pick up interactions between features on their own (distance mattering more for infrequent shoppers, say) and report which features drove their decisions — that's where the distance-from-store finding comes from.
+**Random Forest** builds hundreds of decision trees — each one a sequence of yes/no splits learned on a random slice of the customers and a random subset of the features. A single tree tends to memorise noise; a large, deliberately varied group of trees averages the noise away and keeps the overarching pattern. 
 
-**K-Nearest Neighbours** has no training phase and no equation at all. To classify a customer, it finds the k most similar customers in the training data — similarity measured as plain distance across the scaled features — and takes a vote among them: if four of the five nearest look-alikes joined, the customer is predicted to join. That simplicity makes it a genuinely independent sanity check on the other two, though it leans entirely on feature scaling, because any feature measured on a large scale would otherwise dominate the similarity maths.
+**K-Nearest Neighbours** finds the k most similar customers in the training data — similarity measured as plain distance across the scaled features — if four of the five nearest look-alikes joined, the customer is predicted to join. That simplicity makes it a genuinely independent, though it leans entirely on feature scaling, because any feature measured on a large scale would otherwise dominate the similarity maths.
 
 ---
 

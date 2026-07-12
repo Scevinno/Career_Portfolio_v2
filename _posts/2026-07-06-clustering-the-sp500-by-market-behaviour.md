@@ -45,7 +45,7 @@ There was no ready-made table for this, so I built one: for every current S&P 50
 
 **Applications**
 
-Grouping stocks by behaviour rather than label is a working tool on any equity desk or wealth platform. A portfolio manager can use the clusters as a concentration check — five holdings from five different sectors that all sit in the momentum cluster are one behavioural bet, not five — and a research team can flag companies drifting away from their sector's typical behaviour as candidates for a closer look. The same pipeline fits fund research and robo-advisory workflows too, where style buckets like "defensive income" or "steady compounders" are exactly the building blocks model portfolios are assembled from.
+Grouping stocks by behaviour is a great tool on any equity or wealth management platform. A portfolio manager can use the clusters as a concentration check — five holdings from five different sectors that all sit in the momentum cluster are one behavioural bet — and a research team can flag companies drifting away from their sector's typical behaviour as candidates for a closer look. The same pipeline fits fund research too, where style buckets like "defensive income" or "steady compounders" are exactly the tools model portfolios are assembled from.
 
 **Growth & Next Steps**
 
@@ -75,7 +75,7 @@ The model finds **five behavioural groups** — three findings stand out:
 
 ## 02. Model Overview
 
-**K-means** is an unsupervised algorithm: it never sees an answer key, only the ten metrics, and its job is to find k groups whose members are more similar to each other than to everything else. It works geometrically — each company becomes a point in ten-dimensional space, the algorithm drops k centre points among them, assigns every company to its nearest centre, moves each centre to the average position of the companies assigned to it, and repeats until nothing moves. "Nearest" is literal straight-line distance, which is why feature scaling is non-negotiable here: unscaled, market cap measured in billions would out-shout every percentage metric in the room. The algorithm also has to be told how many groups to look for — it will happily carve any dataset into whatever k you ask of it — so the WCSS elbow search in the K-Means section is how I let the data suggest a sensible number rather than inventing one. Its blind spots are the flip side of its simplicity: it prefers roundish, similarly-sized groups and gets pulled around by extreme values — both of which show up honestly in this dataset, most visibly in the nine-company mega-cap cluster.
+**K-means** is an unsupervised algorithm: it doesn't require any training data. It works geometrically — each company becomes a point in ten-dimensional space, the algorithm drops k centre points among them, assigns every company to its nearest centre, moves each centre to the average position of the companies assigned to it, and repeats until nothing moves. The algorithm is reliant on being told how many groups to look for — so the WCSS elbow search in the K-Means section is how to arrive at a sensible number rather than inventing one.
 
 ---
 

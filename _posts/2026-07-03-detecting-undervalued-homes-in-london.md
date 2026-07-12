@@ -58,7 +58,7 @@ I trained two regression models on ~6,300 London sales from 2024 to predict tota
 
 **Applications**
 
-This is essentially a buy-side screening tool for anyone who works through property lists. A property investor or buy-to-let landlord could run each new batch of listings through the model and only spend viewing time on homes priced well below their predicted value, while an estate agency could use the same logic in reverse to spot under-priced instructions before they go live. Property portals and mortgage lenders already run on this kind of fair-price model — the automated price estimates on listing sites and the sanity checks behind a valuation are close cousins of what's built here, with an investigation shortlist bolted on top.
+This is essentially a buy-side screening tool for anyone who works through property lists. A property investor or buy-to-let landlord could run each new batch of listings through the model and only spend viewing time on homes priced well below their predicted value, while an estate agency could use the same logic in reverse to spot under-priced instructions before they go live. 
 
 **Growth & Next Steps**
 
@@ -87,9 +87,9 @@ The two models also **agree on the output that matters**: run the undervaluation
 
 This project solves the same task two different ways, which makes it a natural place to see what each model actually is.
 
-**Linear Regression** is the simplest model in the book, and that's its strength. It assumes each feature pushes the price up or down by a fixed amount — every extra square metre adds roughly the same number of pounds — and fits the straight line through the training data that produces the smallest overall error. The result is fully transparent: you can read the coefficients directly and say exactly why the model priced a home the way it did. The trade-off is rigidity — if the true relationship curves, or features interact, a straight line can't bend to follow it.
+**Linear Regression** is the simplest model and assumes each feature pushes the price up or down by a fixed amount — every extra square metre adds roughly the same number of pounds — and fits the straight line through the training data that produces the smallest overall error. The result is fully transparent: you can read the coefficients directly and say exactly why the model priced a home the way it did. The trade-off is rigidity — if the true relationship curves, or features interact, a straight line can't bend to follow it.
 
-**Random Forest** attacks the problem with hundreds of decision trees instead. Each tree learns a sequence of yes/no splits ("floor area above 90 sqm?", "postcode area pricier than average?") on a random sample of the data and a random subset of the features, and the forest's prediction is the average of all 500 trees' answers. The randomness is deliberate: it makes each tree wrong in a slightly different way, and averaging washes those individual errors out. Forests capture curved relationships and feature interactions natively and are hard to throw off with odd values — the price you pay is losing the line-by-line interpretability of the linear model.
+**Random Forest** attacks the problem with hundreds of decision trees instead. Each tree learns a sequence of yes/no splits on a random sample of the data and a random subset of the features, and the forest's prediction is the average of all trees' answers. The randomness makes each tree work in a slightly different way, and averaging washes individual errors out. Forests capture curved relationships and feature interactions natively and are hard to throw off with odd values — however, you are losing the line-by-line interpretability of the linear model.
 
 Here the forest's extra flexibility bought almost nothing (~0.76 vs ~0.75 R²) — a useful finding in itself, because it says these three features relate to price in a mostly linear way.
 
