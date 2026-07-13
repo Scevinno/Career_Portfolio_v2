@@ -28,6 +28,19 @@
   <circle cx="640" cy="150" r="220" fill="url(#glowTeal)"/>
   <circle cx="150" cy="440" r="200" fill="url(#glowBlue)"/>
 
+  <!-- ghost pitch: top-down, centred, very transparent -->
+  <g stroke="#17A589" stroke-opacity="0.16" stroke-width="2" fill="none">
+    <rect x="70" y="60" width="660" height="480" rx="4"/>
+    <line x1="400" y1="60" x2="400" y2="540"/>
+    <circle cx="400" cy="300" r="70"/>
+    <rect x="70" y="180" width="110" height="240"/>
+    <rect x="620" y="180" width="110" height="240"/>
+    <rect x="70" y="240" width="40" height="120"/>
+    <rect x="690" y="240" width="40" height="120"/>
+  </g>
+  <circle cx="400" cy="300" r="3.5" fill="#17A589" fill-opacity="0.16"/>
+
+  <g transform="translate(0,40)">
   <!-- event marker: dashed vertical + medical cross badge -->
   <line x1="400" y1="108" x2="400" y2="452" stroke="#eef2f7" stroke-opacity="0.45" stroke-width="2.5" stroke-dasharray="9 9" stroke-linecap="round"/>
   <g>
@@ -72,5 +85,6 @@
       <path d="M438 425 q2 -12 -3 -22 l-9 9 q3 8 1 15 z"/>
       <path d="M383 452 q8 6 17 6 q9 0 17 -6 l-8 -10 q-9 3 -18 0 z"/>
     </g>
+  </g>
   </g>
 </svg>
