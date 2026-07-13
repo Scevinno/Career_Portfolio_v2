@@ -28,20 +28,6 @@
   <circle cx="640" cy="150" r="220" fill="url(#glowTeal)"/>
   <circle cx="150" cy="440" r="200" fill="url(#glowBlue)"/>
 
-  <!-- pitch strip, top-down with extruded 2.5D edge -->
-  <g>
-    <rect x="40" y="452" width="720" height="106" rx="10" fill="#16191f"/>
-    <rect x="40" y="548" width="720" height="18" rx="9" fill="#0d0f13"/>
-    <g stroke="#17A589" stroke-width="2.5" fill="none" stroke-linecap="round">
-      <rect x="58" y="468" width="684" height="74" rx="6"/>
-      <line x1="400" y1="468" x2="400" y2="542"/>
-      <circle cx="400" cy="505" r="26"/>
-      <rect x="58" y="483" width="52" height="44"/>
-      <rect x="690" y="483" width="52" height="44"/>
-    </g>
-    <circle cx="400" cy="505" r="4" fill="#17A589"/>
-  </g>
-
   <!-- event marker: dashed vertical + medical cross badge -->
   <line x1="400" y1="108" x2="400" y2="452" stroke="#eef2f7" stroke-opacity="0.45" stroke-width="2.5" stroke-dasharray="9 9" stroke-linecap="round"/>
   <g>
@@ -72,12 +58,11 @@
   </g>
 
   <!-- counterfactual: glowing teal dashed path, the season that never happened -->
-  <path d="M400 208 C520 190 640 166 740 148" stroke="#25dcb8" stroke-width="5" fill="none" stroke-linecap="round" stroke-dasharray="16 12"/>
-  <circle cx="740" cy="148" r="46" fill="url(#glowTeal)"/>
-  <circle cx="740" cy="148" r="11" fill="#25dcb8"/>
+  <path d="M400 208 C500 194 600 172 688 154" stroke="#25dcb8" stroke-width="5" fill="none" stroke-linecap="round" stroke-dasharray="16 12"/>
+  <circle cx="730" cy="146" r="62" fill="url(#glowTeal)"/>
 
-  <!-- the ball at the break point -->
-  <g>
+  <!-- the ball at the end of the projected line -->
+  <g transform="translate(330,-269)">
     <circle cx="400" cy="415" r="44" fill="url(#ballShade)"/>
     <polygon points="400,398 416,410 410,429 390,429 384,410" fill="#252a36"/>
     <g fill="#252a36" opacity="0.85">
