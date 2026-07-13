@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Measuring what an injury cost a football team">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#252a36"/>
+      <stop offset="1" stop-color="#121419"/>
+    </linearGradient>
+    <radialGradient id="glowTeal" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#25dcb8" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#25dcb8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowBlue" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#2E86C1" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#2E86C1" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="ballShade" cx="0.38" cy="0.32" r="0.85">
+      <stop offset="0" stop-color="#eef2f7"/>
+      <stop offset="0.75" stop-color="#cdd6e2"/>
+      <stop offset="1" stop-color="#9fb0c0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- shared backdrop: ink gradient + faint grid + two soft glows -->
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <g stroke="#eef2f7" stroke-opacity="0.035" stroke-width="1">
+    <path d="M0 80H800M0 160H800M0 240H800M0 320H800M0 400H800M0 480H800"/>
+    <path d="M80 0V600M160 0V600M240 0V600M320 0V600M400 0V600M480 0V600M560 0V600M640 0V600M720 0V600"/>
+  </g>
+  <circle cx="640" cy="150" r="220" fill="url(#glowTeal)"/>
+  <circle cx="150" cy="440" r="200" fill="url(#glowBlue)"/>
+
+  <!-- pitch strip, top-down with extruded 2.5D edge -->
+  <g>
+    <rect x="40" y="452" width="720" height="106" rx="10" fill="#16191f"/>
+    <rect x="40" y="548" width="720" height="18" rx="9" fill="#0d0f13"/>
+    <g stroke="#17A589" stroke-width="2.5" fill="none" stroke-linecap="round">
+      <rect x="58" y="468" width="684" height="74" rx="6"/>
+      <line x1="400" y1="468" x2="400" y2="542"/>
+      <circle cx="400" cy="505" r="26"/>
+      <rect x="58" y="483" width="52" height="44"/>
+      <rect x="690" y="483" width="52" height="44"/>
+    </g>
+    <circle cx="400" cy="505" r="4" fill="#17A589"/>
+  </g>
+
+  <!-- event marker: dashed vertical + medical cross badge -->
+  <line x1="400" y1="108" x2="400" y2="452" stroke="#eef2f7" stroke-opacity="0.45" stroke-width="2.5" stroke-dasharray="9 9" stroke-linecap="round"/>
+  <g>
+    <circle cx="400" cy="78" r="22" fill="#121419" stroke="#25dcb8" stroke-width="2.5"/>
+    <rect x="395" y="66" width="10" height="24" rx="3" fill="#eef2f7"/>
+    <rect x="388" y="73" width="24" height="10" rx="3" fill="#eef2f7"/>
+  </g>
+
+  <!-- lost-points wedge between the two futures -->
+  <path d="M400 208 L740 148 L740 386 Z" fill="#17A589" opacity="0.12"/>
+
+  <!-- actual results path: solid blue, riding high then sliding away -->
+  <g stroke="#2E86C1" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M60 232 L130 214 L200 228 L270 206 L340 216 L400 208"/>
+    <path d="M400 208 L470 268 L520 252 L580 316 L640 300 L690 356 L740 386"/>
+  </g>
+  <g fill="#2E86C1">
+    <circle cx="60" cy="232" r="7"/>
+    <circle cx="130" cy="214" r="7"/>
+    <circle cx="200" cy="228" r="7"/>
+    <circle cx="270" cy="206" r="7"/>
+    <circle cx="340" cy="216" r="7"/>
+    <circle cx="470" cy="268" r="7"/>
+    <circle cx="520" cy="252" r="7"/>
+    <circle cx="580" cy="316" r="7"/>
+    <circle cx="640" cy="300" r="7"/>
+    <circle cx="690" cy="356" r="7"/>
+  </g>
+
+  <!-- counterfactual: glowing teal dashed path, the season that never happened -->
+  <path d="M400 208 C520 190 640 166 740 148" stroke="#25dcb8" stroke-width="5" fill="none" stroke-linecap="round" stroke-dasharray="16 12"/>
+  <circle cx="740" cy="148" r="46" fill="url(#glowTeal)"/>
+  <circle cx="740" cy="148" r="11" fill="#25dcb8"/>
+
+  <!-- the ball at the break point -->
+  <g>
+    <circle cx="400" cy="415" r="44" fill="url(#ballShade)"/>
+    <polygon points="400,398 416,410 410,429 390,429 384,410" fill="#252a36"/>
+    <g fill="#252a36" opacity="0.85">
+      <path d="M372 391 q10 -9 22 -11 l-4 12 q-10 2 -14 8 z"/>
+      <path d="M428 391 q-10 -9 -22 -11 l4 12 q10 2 14 8 z"/>
+      <path d="M362 425 q-2 -12 3 -22 l9 9 q-3 8 -1 15 z"/>
+      <path d="M438 425 q2 -12 -3 -22 l-9 9 q3 8 1 15 z"/>
+      <path d="M383 452 q8 6 17 6 q9 0 17 -6 l-8 -10 q-9 3 -18 0 z"/>
+    </g>
+  </g>
+</svg>

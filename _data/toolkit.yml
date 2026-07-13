@@ -15,18 +15,18 @@ languages:
     note: Power BI measures
 
 library_mix:
-  measured_lines: 493
+  measured_lines: 618
   source: "source code of the published portfolio projects"
-  updated: 2026-07-06
+  updated: 2026-07-13
   # Single-accent version (5 Jul). To revert to the teal-shade ramp, restore
   # per-library colors (darkest-to-lightest ramp) and re-add the label dots
   # in index.html (or git revert commit dc2484c).
   libraries:
     - name: scikit-learn
-      pct: 33
+      pct: 32
       color: "#2dd4bf"
     - name: pandas
-      pct: 33
+      pct: 31
       color: "#2dd4bf"
     - name: Matplotlib
       pct: 20
