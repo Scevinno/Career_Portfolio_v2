@@ -62,9 +62,8 @@ The model predicts that without the injury, City would have averaged **2.49 poin
 |---|---|---|
 | Actual | 1.68 | 52 |
 | Predicted without injury | 2.49 | 77 |
-| 95% interval on the prediction | | [61, 93] |
 | **Effect** | **−0.81** | **−25** |
-| 95% interval on the effect | [−1.31, −0.30] | |
+| 95% interval on the effect | [−1.31, −0.30] | [−41, −9] |
 
 **The gap is large and clearly separated from zero.** Even at the cautious end of the interval City lost around 9 points to the period after the injury; at the centre of the estimate it is 25 — roughly the distance between defending the title and finishing outside the top four.
 
