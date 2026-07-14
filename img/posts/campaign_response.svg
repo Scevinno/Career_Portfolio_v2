@@ -50,13 +50,13 @@
     <polygon points="-105,-52 0,30 105,-52" fill="none" stroke="#0f1216" stroke-width="4" stroke-linejoin="round" opacity="0.5"/>
   </g>
 
-  <!-- the target: proper concentric board, semi-transparent so the flight reads over it -->
-  <g transform="translate(636,208)" opacity="0.55">
-    <circle r="118" fill="#eef2f7"/>
-    <circle r="92" fill="url(#gb)"/>
-    <circle r="64" fill="#eef2f7"/>
-    <circle r="36" fill="url(#gb)"/>
-    <circle r="118" fill="none" stroke="#0f1216" stroke-width="3" opacity="0.6"/>
+  <!-- the target: crosshair rings, ghost-pitch outline style -->
+  <g transform="translate(636,208)" stroke="#1ABC9C" stroke-opacity="0.35" fill="none" stroke-width="2.5">
+    <circle r="135" stroke-width="3"/>
+    <circle r="92"/>
+    <circle r="50"/>
+    <line x1="0" y1="-158" x2="0" y2="158"/>
+    <line x1="-158" y1="0" x2="158" y2="0"/>
   </g>
 
   <!-- flight path: the model's decision curve, landing on the board -->
