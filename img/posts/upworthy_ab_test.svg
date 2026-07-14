@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="A/B testing two headlines on a balance">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#252a36"/>
+      <stop offset="1" stop-color="#121419"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1ec8a5"/>
+      <stop offset="1" stop-color="#148f9e"/>
+    </linearGradient>
+    <radialGradient id="glowT" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#17A589" stop-opacity="0.30"/>
+      <stop offset="1" stop-color="#17A589" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#2E86C1" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#2E86C1" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#bg)"/>
+
+  <!-- faint grid: shared backdrop style -->
+  <g stroke="#eef2f7" stroke-opacity="0.035" stroke-width="1">
+    <path d="M0 80H800M0 160H800M0 240H800M0 320H800M0 400H800M0 480H800"/>
+    <path d="M80 0V600M160 0V600M240 0V600M320 0V600M400 0V600M480 0V600M560 0V600M640 0V600M720 0V600"/>
+  </g>
+
+  <!-- atmosphere -->
+  <ellipse cx="200" cy="420" rx="280" ry="220" fill="url(#glowT)"/>
+  <ellipse cx="620" cy="170" rx="270" ry="200" fill="url(#glowB)"/>
+
+  <!-- the scale: post, base, tilted beam -->
+  <g>
+    <polygon points="352,520 448,520 424,496 376,496" fill="#232a3a"/>
+    <rect x="392" y="216" width="16" height="284" rx="6" fill="#cdd6e2"/>
+    <!-- beam tilted: winner side down -->
+    <g transform="rotate(-10 400 214)">
+      <rect x="188" y="207" width="424" height="14" rx="7" fill="#cdd6e2"/>
+    </g>
+    <circle cx="400" cy="214" r="13" fill="#121419" stroke="#1ABC9C" stroke-width="4"/>
+  </g>
+
+  <!-- hangers -->
+  <line x1="193" y1="252" x2="193" y2="338" stroke="#9aa4b0" stroke-width="2.5"/>
+  <line x1="607" y1="178" x2="607" y2="248" stroke="#9aa4b0" stroke-width="2.5"/>
+
+  <!-- headline B: the lighter card rides high -->
+  <g>
+    <rect x="522" y="248" width="170" height="104" rx="9" fill="#232a3a"/>
+    <g stroke="#9aa4b0" stroke-width="7" stroke-linecap="round" opacity="0.7">
+      <line x1="544" y1="278" x2="668" y2="278"/>
+      <line x1="544" y1="302" x2="640" y2="302"/>
+      <line x1="544" y1="326" x2="606" y2="326"/>
+    </g>
+  </g>
+
+  <!-- headline A: the winner weighs more -->
+  <g>
+    <ellipse cx="193" cy="400" rx="150" ry="110" fill="url(#glowT)"/>
+    <rect x="98" y="338" width="190" height="118" rx="10" fill="url(#card)"/>
+    <g stroke="#eafcf7" stroke-width="8" stroke-linecap="round">
+      <line x1="122" y1="372" x2="262" y2="372"/>
+      <line x1="122" y1="398" x2="230" y2="398"/>
+      <line x1="122" y1="424" x2="190" y2="424"/>
+    </g>
+  </g>
+
+  <!-- the click that decided it -->
+  <g transform="translate(296,462)">
+    <g stroke="#25dcb8" stroke-width="3.5" stroke-linecap="round" opacity="0.9">
+      <line x1="-14" y1="-20" x2="-22" y2="-30"/>
+      <line x1="4" y1="-24" x2="6" y2="-37"/>
+      <line x1="-26" y1="-4" x2="-39" y2="-8"/>
+    </g>
+    <polygon points="0,0 0,34 9,26 16,40 24,36 17,22 29,21" fill="#eef2f7" stroke="#121419" stroke-width="2.5" stroke-linejoin="round"/>
+  </g>
+</svg>
