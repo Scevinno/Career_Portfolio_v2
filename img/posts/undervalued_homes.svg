@@ -13,9 +13,9 @@
       <stop offset="1" stop-color="#148f9e"/>
     </linearGradient>
     <linearGradient id="skylineFade" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#3a4763" stop-opacity="0.9"/>
-      <stop offset="0.25" stop-color="#3a4763" stop-opacity="0.9"/>
-      <stop offset="1" stop-color="#3a4763" stop-opacity="0"/>
+      <stop offset="0" stop-color="#1a2030" stop-opacity="0.85"/>
+      <stop offset="0.25" stop-color="#1a2030" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#1a2030" stop-opacity="0"/>
     </linearGradient>
     <radialGradient id="glowT" cx="0.5" cy="0.5" r="0.5">
       <stop offset="0" stop-color="#17A589" stop-opacity="0.30"/>
@@ -40,7 +40,7 @@
   <ellipse cx="640" cy="140" rx="280" ry="200" fill="url(#glowB)"/>
 
   <!-- distant London skyline -->
-  <g fill="#3a4763" opacity="0.9">
+  <g fill="#1a2030" opacity="0.85">
     <rect x="34" y="308" width="20" height="48"/>
     <polygon points="34,308 44,284 54,308"/>
     <rect x="96" y="330" width="40" height="26"/>
@@ -54,6 +54,14 @@
   </g>
   <!-- skyline base band bleeds downward and fades back into the background -->
   <rect x="0" y="352" width="800" height="248" fill="url(#skylineFade)"/>
+
+  <!-- rooftop contour: glowy dotted teal, same language as the cluster rings on project 3 -->
+  <g fill="none" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M 0 352 H 34 L 34 308 L 44 284 L 54 308 L 54 352 H 96 L 96 330 H 136 L 136 352 H 172 C 167 310 174 282 188 274 C 202 282 209 310 204 352 H 238 L 238 322 H 272 L 272 352 H 304 L 330 246 L 356 352 H 396 L 396 332 H 438 L 438 352 H 586 L 586 318 H 616 L 616 352 H 700 L 700 332 H 744 L 744 352 H 756 L 756 316 H 780 L 780 352 H 800"
+          stroke="#1ec8a5" stroke-width="8" opacity="0.14"/>
+    <path d="M 0 352 H 34 L 34 308 L 44 284 L 54 308 L 54 352 H 96 L 96 330 H 136 L 136 352 H 172 C 167 310 174 282 188 274 C 202 282 209 310 204 352 H 238 L 238 322 H 272 L 272 352 H 304 L 330 246 L 356 352 H 396 L 396 332 H 438 L 438 352 H 586 L 586 318 H 616 L 616 352 H 700 L 700 332 H 744 L 744 352 H 756 L 756 316 H 780 L 780 352 H 800"
+          stroke="#1ec8a5" stroke-width="2.5" stroke-dasharray="8 8" opacity="0.6"/>
+  </g>
 
   <!-- residuals: each sale hangs off the fair-price line -->
   <g stroke="#e7e7e7" stroke-width="2" stroke-dasharray="4 5" opacity="0.45">
