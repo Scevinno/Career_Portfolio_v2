@@ -26,6 +26,9 @@
     <path d="M80 0V600M160 0V600M240 0V600M320 0V600M400 0V600M480 0V600M560 0V600M640 0V600M720 0V600"/>
   </g>
 
+  <!-- scene scaled up to match the clustering cover's edge margins -->
+  <g transform="translate(-58.7 -65) scale(1.16)">
+
   <!-- atmosphere -->
   <ellipse cx="200" cy="420" rx="280" ry="220" fill="url(#glowT)"/>
   <ellipse cx="620" cy="170" rx="270" ry="200" fill="url(#glowB)"/>
@@ -48,10 +51,12 @@
   <!-- headline B: the lighter card rides high -->
   <g>
     <rect x="522" y="248" width="170" height="104" rx="9" fill="#232a3a"/>
-    <g stroke="#9aa4b0" stroke-width="7" stroke-linecap="round" opacity="0.7">
-      <line x1="544" y1="278" x2="668" y2="278"/>
-      <line x1="544" y1="302" x2="640" y2="302"/>
-      <line x1="544" y1="326" x2="606" y2="326"/>
+    <g stroke="#9aa4b0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity="0.7">
+      <!-- letter B -->
+      <path d="M542 274 L542 328 M542 274 H552 A13.5 13.5 0 0 1 552 301 H542 M552 301 H555 A13.5 13.5 0 0 1 555 328 H542" fill="none"/>
+      <line x1="584" y1="278" x2="672" y2="278"/>
+      <line x1="584" y1="302" x2="648" y2="302"/>
+      <line x1="584" y1="326" x2="624" y2="326"/>
     </g>
   </g>
 
@@ -59,10 +64,12 @@
   <g>
     <ellipse cx="193" cy="400" rx="150" ry="110" fill="url(#glowT)"/>
     <rect x="98" y="338" width="190" height="118" rx="10" fill="url(#card)"/>
-    <g stroke="#eafcf7" stroke-width="8" stroke-linecap="round">
-      <line x1="122" y1="372" x2="262" y2="372"/>
-      <line x1="122" y1="398" x2="230" y2="398"/>
-      <line x1="122" y1="424" x2="190" y2="424"/>
+    <g stroke="#eafcf7" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+      <!-- letter A -->
+      <path d="M118 428 L136 368 L154 428 M124.5 407 L147.5 407" fill="none"/>
+      <line x1="172" y1="372" x2="268" y2="372"/>
+      <line x1="172" y1="398" x2="240" y2="398"/>
+      <line x1="172" y1="424" x2="212" y2="424"/>
     </g>
   </g>
 
@@ -74,5 +81,7 @@
       <line x1="-26" y1="-4" x2="-39" y2="-8"/>
     </g>
     <polygon points="0,0 0,34 9,26 16,40 24,36 17,22 29,21" fill="#eef2f7" stroke="#121419" stroke-width="2.5" stroke-linejoin="round"/>
+  </g>
+
   </g>
 </svg>
