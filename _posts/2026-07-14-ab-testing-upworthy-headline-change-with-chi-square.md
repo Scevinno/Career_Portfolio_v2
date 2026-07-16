@@ -91,13 +91,11 @@ The data comes from the **Upworthy Research Archive** — the experiment logs of
 | clicks | Outcome | Readers who clicked it |
 | non_clicks | Derived | impressions − clicks, built during preparation |
 
-One note on the archive: it records which image accompanied each headline as an ID, but the image files themselves are not included — so wording is the only treatment this analysis can see.
-
 ---
 
 ## 04. Data Preparation
 
-There is barely any — which is the point of picking a well-run experiment. The archive arrives pre-aggregated: each row already carries the totals for one version, so there is no person-level table to count up. Preparation is two steps: filter the archive to the two row ids of this experiment, and derive the missing half of the outcome — `non_clicks` — by subtracting clicks from impressions. That yields the two-by-two table of counts the test consumes: clicks and non-clicks for each headline.
+The archive arrives pre-aggregated: each row already carries the totals for one version, so there is no person-level table to count up. Preparation is two steps: filter the archive to the two row ids of this experiment, and derive the missing half of the outcome — `non_clicks` — by subtracting clicks from impressions. That yields the two-by-two table of counts the test consumes: clicks and non-clicks for each headline.
 
 ---
 
@@ -151,7 +149,7 @@ The clearest way to see the test's logic is to draw the two tables it compares �
 
 ![Observed clicks vs clicks expected under the null]({{ "/img/posts/upworthy_observed_expected.png" | relative_url }})
 
-The Women version collected about 26 clicks more than its share, and the Mothers version about 26 fewer — the same gap seen from both sides. The chi-square statistic is a single number summarising exactly that daylight between the teal and grey bars.
+The Women version collected about 26 clicks more than its share, and the Mothers version about 26 fewer — the same gap seen from both sides. The chi-square statistic is a single number summarising exactly that difference.
 
 ---
 
