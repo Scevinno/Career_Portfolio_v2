@@ -1,16 +1,16 @@
 ---
 layout: post
-title: A/B Testing a One-Word Headline Change with Chi-Square
+title: A/B Testing Upworthy Headline Change with Chi-Square
 image: "/img/posts/upworthy_ab_test.svg"
 tags: [A/B Testing, Hypothesis Testing, Python]
-summary: "Upworthy ran the same headline twice — one word apart. A chi-square test on 24,790 randomised readers says the word genuinely changed how many people clicked."
+summary: "Upworthy ran the same headline twice — one word apart. A chi-square test on ~24,800 randomised readers says the word genuinely changed how many people clicked."
 stack: "Python · pandas · SciPy"
 metrics:
   - value: "+21%"
     label: "click lift from one word"
-  - value: "24,790"
+  - value: "~24,800"
     label: "readers randomised"
-  - value: "0.023"
+  - value: "0.02"
     label: "p-value on the verdict"
 ---
 
