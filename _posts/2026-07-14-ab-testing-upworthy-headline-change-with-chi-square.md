@@ -7,11 +7,11 @@ summary: "Upworthy ran the same headline twice — one word different. A chi-squ
 stack: "Python · pandas · SciPy"
 metrics:
   - value: "+21%"
-    label: "click lift"
+    label: "click uplift"
   - value: "~24,800"
     label: "readers in 2010s"
   - value: "0.02"
-    label: "p-value"
+    label: "p-value of difference"
 ---
 
 In the early 2010s, Upworthy was one of the most-clicked media sites on the internet — and behind the scenes it A/B tested the headline of almost every story it published, showing different versions to randomly split visitors and counting the clicks. Years later, the complete experiment logs were released as an open research archive. This project takes one experiment from it — two headlines identical except for a **single word** — and asks whether that word genuinely changed reader behaviour, using a chi-square test.
@@ -46,11 +46,11 @@ I filtered the archive down to that one experiment — two rows, one per headlin
 
 **Applications**
 
-This is the everyday statistics of publishing. Newsrooms and media companies test headlines, push notifications, and newsletter subject lines on live traffic constantly — and the difference between a real winner and random noise is exactly this test. The same calculation sits inside the testing tools those teams use to decide which version the rest of the audience gets.
+This is the everyday statistics of publishing. Newsrooms and media companies test headlines, push notifications, and newsletter subject lines on live traffic constantly — and the difference between a winner and loser is exactly this test. 
 
 **Growth & Next Steps**
 
-The archive holds 61 clean head-to-head headline tests, and the same few lines of code run on all of them would show how often wording genuinely moves readers. Beyond that: a companion example where a one-word change did *nothing* — the archive has one — and reporting the size of the effect with a confidence interval rather than just the yes/no verdict.
+The archive holds 61 clean head-to-head headline tests, and the same few lines of code run on all of them would show how often wording genuinely moves readers. Beyond that: the question the test itself can't answer — *why* Women out-clicked Mothers, what the two words signal to a reader — and reporting the size of the effect with a confidence interval rather than just the yes/no verdict.
 
 ---
 
@@ -160,7 +160,7 @@ The Women version collected about 26 clicks more than its share, and the Mothers
 Concrete improvements queued for the next iteration:
 
 - **Run the whole archive of head-to-heads.** The same two-by-two test in a loop over all 61 two-version experiments would turn one anecdote into a base rate: how often does a headline change actually move readers?
-- **Show a null result beside this one.** The archive contains another one-word test — "Schools" vs "Teachers" — where the click rates came out virtually identical. Working that example makes the method's point: the test is what separates the word that mattered from the word that didn't.
+- **Ask why the word worked.** The test proves Women out-clicked Mothers; it says nothing about why. A behavioural follow-up — what each word signals, which readers felt addressed by it, how each frames the story's subject — is the investigation that would turn a statistical verdict into wording guidance a headline desk could reuse.
 - **Report the size, not just the verdict.** A confidence interval on the difference in click rates would say how big the effect plausibly is, which is the number a headline desk would actually act on.
 
 ---
